@@ -26,6 +26,7 @@ class _InputPageState extends State<InputPage> {
 
   int height = 180;
   int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +136,7 @@ class _InputPageState extends State<InputPage> {
                               child: Icon(Icons.remove),
                               func: () {
                                 setState(() {
-                                  weight--;
+                                  weight = weight > 0 ? --weight : 0;
                                 });
                               },
                             ),
@@ -160,6 +161,43 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: BasicCard(
                     color: activeColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: labelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: numberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundButtonIcon(
+                              child: Icon(Icons.remove),
+                              func: () {
+                                setState(() {
+                                  age = age > 0 ? --age : 0;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            RoundButtonIcon(
+                              child: Icon(Icons.add),
+                              func: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
