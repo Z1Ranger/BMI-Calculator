@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'BasicCard.dart';
+import 'CustomIcon.dart';
 
 const double bottomContainerHeight = 60;
 const activeColour = Color(0xFF1D1E33);
+const inactiveColour = Color(0xFF111328);
 const bottomColour = Color(0xFFEB1555);
 
 class InputPage extends StatefulWidget {
@@ -11,6 +14,19 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  List colors = [inactiveColour, inactiveColour];
+
+  void updateColor(int i) {
+    if (colors[i] == inactiveColour) {
+      colors[i] = activeColour;
+      i++;
+      i %= 2;
+      colors[i] = inactiveColour;
+    } else {
+      colors[i] = inactiveColour;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,17 +40,31 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: BasicCard(
-                    color: activeColour,
-                    cardChild:
-                        CustomIcon(icon: FontAwesomeIcons.mars, text: 'MALE'),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColor(0);
+                      });
+                    },
+                    child: BasicCard(
+                      color: colors[0],
+                      cardChild:
+                          CustomIcon(icon: FontAwesomeIcons.mars, text: 'MALE'),
+                    ),
                   ),
                 ),
                 Expanded(
-                  child: BasicCard(
-                    color: activeColour,
-                    cardChild: CustomIcon(
-                        icon: FontAwesomeIcons.venus, text: 'FEMALE'),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColor(1);
+                      });
+                    },
+                    child: BasicCard(
+                      color: colors[1],
+                      cardChild: CustomIcon(
+                          icon: FontAwesomeIcons.venus, text: 'FEMALE'),
+                    ),
                   ),
                 ),
               ],
@@ -69,55 +99,6 @@ class _InputPageState extends State<InputPage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CustomIcon extends StatelessWidget {
-  CustomIcon({@required this.icon, @required this.text});
-
-  final icon;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          icon,
-          size: 80,
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Text(
-          text,
-          style: TextStyle(
-            fontSize: 18,
-            color: Color(0xFF8D8E98),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class BasicCard extends StatelessWidget {
-  BasicCard({@required this.color, this.cardChild});
-
-  final Color color;
-  final Widget cardChild;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: cardChild,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: EdgeInsets.all(15),
     );
   }
 }
