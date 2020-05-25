@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'BasicCard.dart';
 import 'CustomIcon.dart';
 import 'constants.dart';
+import 'RoundButtonIcon.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -24,6 +25,7 @@ class _InputPageState extends State<InputPage> {
   }
 
   int height = 180;
+  int weight = 60;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +117,43 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: BasicCard(
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'WEIGHT',
+                          style: labelTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: numberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundButtonIcon(
+                              child: Icon(Icons.remove),
+                              func: () {
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            RoundButtonIcon(
+                              child: Icon(Icons.add),
+                              func: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                     color: activeColour,
                   ),
                 ),
