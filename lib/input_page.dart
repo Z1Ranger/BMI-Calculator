@@ -4,6 +4,8 @@ import 'BasicCard.dart';
 import 'CustomIcon.dart';
 import 'constants.dart';
 import 'RoundButtonIcon.dart';
+import 'results.dart';
+import 'calculator.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -203,11 +205,34 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: bottomColour,
-            margin: EdgeInsets.only(top: 10),
-            width: double.infinity,
-            height: bottomContainerHeight,
+          GestureDetector(
+            onTap: () {
+              Calculator _calculator =
+                  Calculator(height: height, weight: weight);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return ResultPage(
+                    bmiResult: _calculator.calculateBMI(),
+                    resultText: _calculator.getResult(),
+                    interpretation: _calculator.getInterpretation(),
+                  );
+                }),
+              );
+            },
+            child: Container(
+              child: Center(
+                child: Text(
+                  'CALCULATE',
+                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                ),
+              ),
+              color: bottomColour,
+              margin: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(bottom: 20),
+              width: double.infinity,
+              height: bottomContainerHeight,
+            ),
           ),
         ],
       ),
