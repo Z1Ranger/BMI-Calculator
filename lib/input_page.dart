@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'BasicCard.dart';
 import 'CustomIcon.dart';
-
-const double bottomContainerHeight = 60;
-const activeColour = Color(0xFF1D1E33);
-const inactiveColour = Color(0xFF111328);
-const bottomColour = Color(0xFFEB1555);
+import 'constants.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -27,6 +23,8 @@ class _InputPageState extends State<InputPage> {
     }
   }
 
+  int height = 180;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +33,7 @@ class _InputPageState extends State<InputPage> {
         centerTitle: true,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: Row(
@@ -72,6 +71,42 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: BasicCard(
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'HEIGHT',
+                    style: labelTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        height.toString(),
+                        style: numberTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: labelTextStyle,
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: height.toDouble(),
+                    min: 120,
+                    max: 220,
+                    activeColor: Color(0xFFEB1555),
+                    inactiveColor: Color(0xFF8D8E98),
+                    onChanged: (double newVal) {
+                      setState(() {
+                        height = newVal.toInt();
+                      });
+                    },
+                  ),
+                ],
+              ),
               color: activeColour,
             ),
           ),
